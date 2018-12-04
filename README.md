@@ -3,7 +3,7 @@
 <b>Sobre o sistema:</b> Plataforma de e-govermment que auxiliará o poder público a receber propostas dos cidadãos e audiências públicas.<br><br><br>
 <b>Plataforma do sistema:</b> Android<br>
 <b>Linguagem de programação:</b> Dart<br>
-<b>Framework:</b>Flutter<br><br>
+<b>Framework:</b>Flutter<br>
 <b>IDE:</b>IntelliJ<br><br>
 <b>Nível de conhecimento dos participantes na linguagem do projeto:</b><br>
 &nbsp;&nbsp;&nbsp;<i>Glauber Atanaka dos Santos:</i> 2<br>
