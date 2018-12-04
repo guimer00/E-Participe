@@ -1,5 +1,7 @@
 # E-Participe
-Repositório para desenvolvimento das atividades de APS2 do curso de Sistemas de Informação, UFMT, 6º Semestre
+Repositório para desenvolvimento das atividades de APS2 do curso de Sistemas de Informação, UFMT, 6º Semestre <br>
+
+
 Plataforma do sistema: Android
 Linguagem de programação: Dart
 IDE: Flutter
