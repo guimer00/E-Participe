@@ -5,8 +5,8 @@
 <b>Linguagem de programação:</b> Dart<br>
 <b>IDE:</b> Flutter<br><br>
 <b>Nível de conhecimento dos participantes na linguagem do projeto:</b><br>
-&nbsp;&nbsp;&nbsp;<b>Glauber Atanaka dos Santos:</b> 2<br>
-&nbsp;&nbsp;&nbsp;<b>Miguel Morais Paula:</b> 0<br>
-&nbsp;&nbsp;&nbsp;<b>Rodrigo Neves Rombaldi:</b> 1<br><br>
+&nbsp;&nbsp;&nbsp;<i>Glauber Atanaka dos Santos:</i> 2<br>
+&nbsp;&nbsp;&nbsp;<i>Miguel Morais Paula:</i> 0<br>
+&nbsp;&nbsp;&nbsp;<i>Rodrigo Neves Rombaldi:</i> 1<br><br>
 <b>Banco de Dados:</b> Firebase<br>
 <b>Hospedagem do banco:</b> Google Cloud<br>
