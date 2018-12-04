@@ -10,4 +10,4 @@
 &nbsp;&nbsp;&nbsp;<i>Miguel Morais Paula:</i> 0<br>
 &nbsp;&nbsp;&nbsp;<i>Rodrigo Neves Rombaldi:</i> 1<br><br>
 <b>Banco de Dados:</b> Firebase<br>
-<b>Hospedagem do banco:</b> Google Cloud<br>
+
