@@ -5,7 +5,7 @@
 <b>Linguagem de programação:</b> Dart<br>
 <b>IDE:</b> Flutter<br>
 <b>Nível de conhecimento dos participantes na linguagem do projeto:</b><br>
-&nbsp&nbsp&nbsp<b>Glauber Atanaka dos Santos:</b> 2<br>
+&nbsp;&nbsp;&nbsp;<b>Glauber Atanaka dos Santos:</b> 2<br>
 &nbsp&nbsp&nbsp<b>Miguel Morais Paula:</b> 0<br>
 &nbsp&nbsp&nbsp<b>Rodrigo Neves Rombaldi:</b> 1<br>
 <b>Banco de Dados:</b> Firebase<br>
