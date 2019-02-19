@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "309819496247",
+    "firebase_url": "https://e-participe.firebaseio.com",
+    "project_id": "e-participe",
+    "storage_bucket": "e-participe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:309819496247:android:673f0f47a6d3545e",
+        "android_client_info": {
+          "package_name": "com.example.eparticipe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "309819496247-38sqh9r6ja0gqhsbieol6cp42atgso22.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eparticipe",
+            "certificate_hash": "88f1cd0fdcd835ebb158729fd70de648fce89541"
+          }
+        },
+        {
+          "client_id": "309819496247-pegmlmkj4qk496tb9vlunoa7mvld47mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGZp9fcUiCF4IzlM1_bFHbRJc1jE0wois"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "309819496247-pegmlmkj4qk496tb9vlunoa7mvld47mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
