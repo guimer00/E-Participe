@@ -1,0 +1,55 @@
+{
+    "users": {
+        "user1": {
+            "name": "Nabuco Donosor",
+            "age": "5000",
+            "email": "nabuko_z1k4@iggy.com",
+            "o que mais precisar para auth google": "k",
+
+            "propostas": {
+                "proposta1": true
+            }
+        }
+    },
+
+    "propostas": {
+        "proposta1": {
+            "titulo": "título",
+            "tema": "Segurança Pública",
+            "região": "Coxipó",
+            "data_criacao": "10/10/1989",
+            "autor?": "user1?",
+            "v_positivo": 8000,
+            "v_negativo": 150,
+            "situacao": "em votação (enum)?",
+            "descricao": "uns troço louco aí"
+
+        }
+    },
+
+    "temas": {
+        "seguranca": "Segurança Pública",
+        "infra": "Infraestrutura",
+        "saude": "Saúde",
+        "esporte": "Esporte",
+        "lazer": "Lazer",
+        "transportePublico": "Transporte Público",
+        "saneamento": "Saneamento",
+        "cultura": "Cultura"
+    },
+
+    "parametros": {
+        "termo de uso": "insira um texto longo que ninguém vai ler aqui",
+        "politica de privacidade": "outro texto longo que pipipi popopo",
+        "about us": "v90240.111245.194828 stable"
+    }
+
+
+
+
+
+
+
+
+
+}
