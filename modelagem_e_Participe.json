@@ -17,10 +17,10 @@
             "titulo": "título",
             "tema": "Segurança Pública",
             "região": "Coxipó",
-            "data_criacao": "10/10/1989",
+            "dataCriacao": "10/10/1989",
             "autor?": "user1?",
-            "v_positivo": 8000,
-            "v_negativo": 150,
+            "vPositivo": 8000,
+            "vNegativo": 150,
             "situacao": "em votação (enum)?",
             "descricao": "uns troço louco aí"
 
