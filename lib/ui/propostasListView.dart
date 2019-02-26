@@ -68,27 +68,12 @@ class _PropostaListViewState extends State<PropostaListView> {
                   ),
                   subtitle: Text(
                     '${items[position].descricao}',
+                    maxLines: 3,
+                    overflow: TextOverflow.ellipsis,
                     style: new TextStyle(
                       fontSize: 18.0,
                       fontStyle: FontStyle.italic,
                     ),
-                  ),
-                  leading: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      //Padding(padding: EdgeInsets.all(10.0)),
-                      CircleAvatar(
-                        backgroundColor: Colors.blueAccent,
-                        radius: 15.0,
-                        child: Text(
-                          '${position + 1}',
-                          style: TextStyle(
-                            fontSize: 22.0,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
                   ),
                 )
               ],
