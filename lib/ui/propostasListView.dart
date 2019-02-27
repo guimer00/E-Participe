@@ -48,7 +48,17 @@ class _PropostaListViewState extends State<PropostaListView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+        ),
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {}
+          )
+        ],
       ),
       body: Center(
         child: ListView.builder(
