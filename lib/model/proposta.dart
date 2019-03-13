@@ -1,6 +1,5 @@
 import 'package:e_participe/model/baseModel.dart';
 
-
 class Proposta extends BaseModel {
   String _titulo;
   String _tema;
