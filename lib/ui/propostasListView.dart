@@ -20,7 +20,7 @@ class _PropostaListViewState extends State<PropostaListView> {
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
 
   StreamSubscription<QuerySnapshot> propostaSub;
-
+  String filtro = "";
   @override
   void initState() {
     super.initState();
@@ -30,6 +30,7 @@ class _PropostaListViewState extends State<PropostaListView> {
     propostaSub?.cancel();
     propostaSub = propostaDB.getList().listen((QuerySnapshot snapshot) {
       final List<Proposta> propostas = snapshot.documents
+          .where((snapshot) => filtro.isNotEmpty ? snapshot.data.containsValue(filtro) : true)
           .map((documentSnapshot) => Proposta.fromMap(documentSnapshot.data))
           .toList();
 
