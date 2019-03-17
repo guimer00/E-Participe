@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_participe/ui/visualizarProposta.dart';
 
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
@@ -76,6 +77,14 @@ class _PropostaListViewState extends State<PropostaListView> {
                       color: Colors.deepOrangeAccent,
                     ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context, 
+                      MaterialPageRoute(
+                        builder: (context) => VisualizarProposta(proposta: items[position])
+                      )
+                    );
+                  },
                   subtitle: Text(
                     '${items[position].descricao}',
                     maxLines: 3,
