@@ -14,30 +14,49 @@ class VisualizarProposta extends StatelessWidget {
       appBar: AppBar(
         title: Text(proposta.titulo),
       ),
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: Text("Descrição:", textAlign: TextAlign.left),
-            title: Text(proposta.descricao  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Tema:", textAlign: TextAlign.left),
-            title: Text(proposta.tema  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Região:", textAlign: TextAlign.left),
-            title: Text(proposta.regiao  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Data de Criação:", textAlign: TextAlign.left),
-            title: Text(proposta.dataCriacao  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Autor:", textAlign: TextAlign.left),
-            title: Text(proposta.autor ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-        ]
-      ),
+      body: new VisualizarDados(proposta: proposta),
+    );
+  }
+}
+
+class VisualizarDados extends StatelessWidget {
+  const VisualizarDados({
+    Key key,
+    @required this.proposta,
+  }) : super(key: key);
+
+  final Proposta proposta;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Text("Descrição:", textAlign: TextAlign.left),
+                Text(proposta.descricao  ?? "Não informado", textAlign: TextAlign.justify) ],
+            )
+          ],
+        ),
+        ListTile(
+          leading: Text("Tema:", textAlign: TextAlign.left),
+          title: Text(proposta.tema  ?? "Não informado", textAlign: TextAlign.justify)
+        ),
+        ListTile(
+          leading: Text("Região:", textAlign: TextAlign.left),
+          title: Text(proposta.regiao  ?? "Não informado", textAlign: TextAlign.justify)
+        ),
+        ListTile(
+          leading: Text("Data de Criação:", textAlign: TextAlign.left),
+          title: Text(proposta.dataCriacao  ?? "Não informado", textAlign: TextAlign.justify)
+        ),
+        ListTile(
+          leading: Text("Autor:", textAlign: TextAlign.left),
+          title: Text(proposta.autor ?? "Não informado", textAlign: TextAlign.justify)
+        ),
+      ]
     );
   }
 }
