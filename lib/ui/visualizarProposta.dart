@@ -14,9 +14,29 @@ class VisualizarProposta extends StatelessWidget {
       appBar: AppBar(
         title: Text(proposta.titulo),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Text(proposta.descricao),
+      body: ListView(
+        children: <Widget>[
+          ListTile(
+            leading: Text("Descrição:", textAlign: TextAlign.left),
+            title: Text(proposta.descricao  ?? "Não informado", textAlign: TextAlign.justify)
+          ),
+          ListTile(
+            leading: Text("Tema:", textAlign: TextAlign.left),
+            title: Text(proposta.tema  ?? "Não informado", textAlign: TextAlign.justify)
+          ),
+          ListTile(
+            leading: Text("Região:", textAlign: TextAlign.left),
+            title: Text(proposta.regiao  ?? "Não informado", textAlign: TextAlign.justify)
+          ),
+          ListTile(
+            leading: Text("Data de Criação:", textAlign: TextAlign.left),
+            title: Text(proposta.dataCriacao  ?? "Não informado", textAlign: TextAlign.justify)
+          ),
+          ListTile(
+            leading: Text("Autor:", textAlign: TextAlign.left),
+            title: Text(proposta.autor ?? "Não informado", textAlign: TextAlign.justify)
+          ),
+        ]
       ),
     );
   }
