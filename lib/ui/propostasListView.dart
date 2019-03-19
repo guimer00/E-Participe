@@ -66,27 +66,60 @@ class _PropostaListViewState extends State<PropostaListView> {
           itemCount: items.length,
           padding: const EdgeInsets.all(15.0),
           itemBuilder: (context, position) {
-            return Column(
-              children: <Widget>[
-                Divider(height: 5.0),
-                ListTile(
-                  title: Text(
-                    '${items[position].titulo}',
-                    style: TextStyle(
-                      fontSize: 22.0,
-                      color: Colors.deepOrangeAccent,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                      context, 
-                      MaterialPageRoute(
-                        builder: (context) => VisualizarProposta(proposta: items[position])
+            return new Card (
+              child: new InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VisualizarProposta(proposta: items[position])
+                    )
+                  );
+                },
+                child: Column(
+                  children: <Widget>[
+                    new Text('${items[position].titulo}',
+                      style: TextStyle(
+                        color: Colors.deepPurpleAccent, 
                       )
-                    );
-                  },
-                  subtitle: Text(
-                    '${items[position].descricao}',
+                    )
+                  ]
+                )
+              )
+            );
+          } // itemBuilder
+        ),
+      ),
+    );
+  }
+
+}
+
+
+
+
+/*return Column(
+    children: <Widget>[
+    Divider(height: 5.0),
+    ListTile(
+    title: Text(
+    '${items[position].titulo}',
+    style: TextStyle(
+    fontSize: 22.0,
+    color: Colors.deepOrangeAccent,
+    ),
+    ),
+    onTap: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => VisualizarProposta(proposta: items[position])
+    )
+    );
+    },
+    subtitle: Text(
+    '${items[position
+    }].descricao}',
                     maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                     style: new TextStyle(
@@ -96,11 +129,4 @@ class _PropostaListViewState extends State<PropostaListView> {
                   ),
                 )
               ],
-            );
-          } // itemBuilder
-        ),
-      ),
-    );
-  }
-
-}
+            );*/
