@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_participe/ui/adicionarProposta.dart';
+import 'package:e_participe/ui/visualizarProposta.dart';
 
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
@@ -20,7 +21,7 @@ class _PropostaListViewState extends State<PropostaListView> {
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
 
   StreamSubscription<QuerySnapshot> propostaSub;
-
+  String filtro = "";
   @override
   void initState() {
     super.initState();
@@ -30,6 +31,7 @@ class _PropostaListViewState extends State<PropostaListView> {
     propostaSub?.cancel();
     propostaSub = propostaDB.getList().listen((QuerySnapshot snapshot) {
       final List<Proposta> propostas = snapshot.documents
+          .where((snapshot) => filtro.isNotEmpty ? snapshot.data.containsValue(filtro) : true)
           .map((documentSnapshot) => Proposta.fromMap(documentSnapshot.data))
           .toList();
 
@@ -77,6 +79,14 @@ class _PropostaListViewState extends State<PropostaListView> {
                       color: Colors.deepOrangeAccent,
                     ),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VisualizarProposta(proposta: items[position])
+                      )
+                    );
+                  },
                   subtitle: Text(
                     '${items[position].descricao}',
                     maxLines: 3,
