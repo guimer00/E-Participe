@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_participe/ui/adicionarProposta.dart';
 
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
@@ -91,7 +92,20 @@ class _PropostaListViewState extends State<PropostaListView> {
           } // itemBuilder
         ),
       ),
+      floatingActionButton: new FloatingActionButton(
+          tooltip: 'Adicionar uma nova proposta.',
+          child: new Icon(Icons.add),
+          onPressed: (){
+            _addPropostaPage();
+          }
+      ),
     );
   }
 
-}
+  void _addPropostaPage() async {
+    await Navigator.push(context,
+      MaterialPageRoute(builder: (context) => AdicionarProposta())
+    );
+
+    }
+  }

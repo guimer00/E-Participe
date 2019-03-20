@@ -96,4 +96,39 @@ class Proposta extends BaseModel {
     return Proposta();
   }
 
+  set titulo(String value) {
+    _titulo = value;
+  }
+  set tema(String value) {
+    _tema = value;
+  }
+
+  set regiao(String value) {
+    _regiao = value;
+  }
+
+  set dataCriacao(String value) {
+    _dataCriacao = value;
+  }
+
+  set autor(String value) {
+    _autor = value;
+  }
+
+  set vPositivo(int value) {
+    _vPositivo = value;
+  }
+
+  set vContra(int value) {
+    _vContra = value;
+  }
+
+  set situacao(String value) {
+    _situacao = value;
+  }
+
+  set descricao(String value) {
+    _descricao = value;
+  }
+
 }
