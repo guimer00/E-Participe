@@ -55,13 +55,13 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
             _editedProposta.vContra = 0;
             _editedProposta.vPositivo = 0;
             _editedProposta.dataCriacao =
-            (formatDate(DateTime.now(), [dd, '/', MM, '/', yyyy]).toString());
+            (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy]).toString());
             _editedProposta.situacao = 'Em votação';
             _propostaDB.createObject(_editedProposta).then((result) {
               Scaffold.of(context).showSnackBar(snackBar);
               print('Sucesso!');
             }).catchError((e) {
-              print('ERRROOOOOO' + e);
+              print(e);
             });
             Navigator.pop(context, _editedProposta);
           },
