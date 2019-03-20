@@ -14,30 +14,45 @@ class VisualizarProposta extends StatelessWidget {
       appBar: AppBar(
         title: Text(proposta.titulo),
       ),
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: Text("Descrição:", textAlign: TextAlign.left),
-            title: Text(proposta.descricao  ?? "Não informado", textAlign: TextAlign.justify)
+      body: SingleChildScrollView(child: new VisualizarDados(proposta: proposta))
+    );
+  }
+}
+
+class VisualizarDados extends StatelessWidget {
+  const VisualizarDados({
+    Key key,
+    @required this.proposta,
+  }) : super(key: key);
+
+  final Proposta proposta;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          contentPadding: const EdgeInsets.all(15.0),
+          title: Text("Descrição:", textAlign: TextAlign.left, style: TextStyle(fontSize: 18.0)),
+          subtitle: Text(proposta.descricao  ?? "Não informado", textAlign: TextAlign.left, style: TextStyle(fontSize: 16.0)),
           ),
-          ListTile(
-            leading: Text("Tema:", textAlign: TextAlign.left),
-            title: Text(proposta.tema  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Região:", textAlign: TextAlign.left),
-            title: Text(proposta.regiao  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Data de Criação:", textAlign: TextAlign.left),
-            title: Text(proposta.dataCriacao  ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-          ListTile(
-            leading: Text("Autor:", textAlign: TextAlign.left),
-            title: Text(proposta.autor ?? "Não informado", textAlign: TextAlign.justify)
-          ),
-        ]
-      ),
+        ListTile(
+          title: Text("Tema:", textAlign: TextAlign.left, style: TextStyle(fontSize: 18.0)),
+          subtitle: Text(proposta.tema  ?? "Não informado", textAlign: TextAlign.left, style: TextStyle(fontSize: 16.0))
+        ),
+        ListTile(
+          title: Text("Região:", textAlign: TextAlign.left, style: TextStyle(fontSize: 18.0)),
+          subtitle: Text(proposta.regiao  ?? "Não informado", textAlign: TextAlign.left, style: TextStyle(fontSize: 16.0))
+        ),
+        ListTile(
+          title: Text("Data de Criação:", textAlign: TextAlign.left, style: TextStyle(fontSize: 18.0)),
+          subtitle: Text(proposta.dataCriacao  ?? "Não informado", textAlign: TextAlign.left, style: TextStyle(fontSize: 16.0))
+        ),
+        ListTile(
+          title: Text("Autor:", textAlign: TextAlign.left, style: TextStyle(fontSize: 18.0)),
+          subtitle: Text(proposta.autor ?? "Não informado", textAlign: TextAlign.left, style: TextStyle(fontSize: 16.0))
+        ),
+      ]
     );
   }
 }
