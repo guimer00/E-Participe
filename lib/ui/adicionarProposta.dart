@@ -47,17 +47,43 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _editedProposta.vContra = 0;
-            _editedProposta.vPositivo = 0;
-            _editedProposta.dataCriacao =
-            (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy]).toString());
-            _editedProposta.situacao = 'Em votação';
-            _propostaDB.createObject(_editedProposta).then((result) {
-              print('Sucesso!');
-              Navigator.pop(context, _editedProposta);
-            }).catchError((e) {
-              print('error: $e');
-            });
+            if (_editedProposta.titulo == null ||
+                _editedProposta.titulo.isEmpty) {
+              FocusScope.of(context).requestFocus(_tituloFocus);
+            } else {
+              if (_editedProposta.tema == null ||
+                  _editedProposta.tema.isEmpty) {
+                FocusScope.of(context).requestFocus(_temaFocus);
+              } else {
+                if (_editedProposta.regiao == null ||
+                    _editedProposta.regiao.isEmpty) {
+                  FocusScope.of(context).requestFocus(_regiaoFocus);
+                } else {
+                  if (_editedProposta.autor == null ||
+                      _editedProposta.autor.isEmpty) {
+                    FocusScope.of(context).requestFocus(_autorFocus);
+                  } else {
+                    if (_editedProposta.descricao == null ||
+                        _editedProposta.descricao.isEmpty) {
+                      FocusScope.of(context).requestFocus(_descricaoFocus);
+                    } else {
+                      _editedProposta.vContra = 0;
+                      _editedProposta.vPositivo = 0;
+                      _editedProposta.dataCriacao =
+                      (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy])
+                          .toString());
+                      _editedProposta.situacao = 'Em votação';
+                      _propostaDB.createObject(_editedProposta).then((result) {
+                        print('Sucesso!');
+                        Navigator.pop(context, _editedProposta);
+                      }).catchError((e) {
+                        print('error: $e');
+                      });
+                    };
+                  }
+                }
+              }
+            }
           },
           child:  Icon(Icons.save),
           backgroundColor: Colors.lightBlueAccent,
