@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
 
 import 'package:e_participe/model/proposta.dart';
+import 'package:e_participe/service/auth.dart';
 
 class PropostaListView extends StatefulWidget {
   PropostaListView({Key key, this.title}) : super(key: key);
@@ -16,6 +17,9 @@ class PropostaListView extends StatefulWidget {
 }
 
 class _PropostaListViewState extends State<PropostaListView> {
+  Map<String, dynamic> _profile;  
+  bool isAutenticado = false;
+  bool _loading = false;
   List<Proposta> items;
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
 
@@ -24,6 +28,12 @@ class _PropostaListViewState extends State<PropostaListView> {
   @override
   void initState() {
     super.initState();
+
+    authService.profile.listen((state) => setState(() {
+      _profile = state;
+      isAutenticado = _profile.isNotEmpty;
+    }));
+    authService.loading.listen((state) => setState(() => _loading = state));
 
     items = new List();
 
