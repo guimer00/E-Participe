@@ -16,6 +16,8 @@ class PropostaListView extends StatefulWidget {
   _PropostaListViewState createState() => _PropostaListViewState();
 }
 
+final _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class _PropostaListViewState extends State<PropostaListView> {
   List<Proposta> items;
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
@@ -50,6 +52,7 @@ class _PropostaListViewState extends State<PropostaListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.menu),
@@ -106,16 +109,27 @@ class _PropostaListViewState extends State<PropostaListView> {
           tooltip: 'Adicionar uma nova proposta.',
           child: new Icon(Icons.add),
           onPressed: (){
-            _addPropostaPage();
+            _adicionarPropostaPage();
           }
       ),
     );
   }
 
-  void _addPropostaPage() async {
-    await Navigator.push(context,
+  _displaySnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Proposta adicionada!'),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void _adicionarPropostaPage() async {
+    final adicionarNovaProposta = await Navigator.push(context,
       MaterialPageRoute(builder: (context) => AdicionarProposta())
     );
-
+    if (adicionarNovaProposta != null){
+      _displaySnackBar(context);
     }
   }
+}

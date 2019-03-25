@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:e_participe/model/proposta.dart';
 import 'package:date_format/date_format.dart';
 
-
-
 class AdicionarProposta extends StatefulWidget {
-
   final Proposta proposta;
   AdicionarProposta({this.proposta});
 
@@ -28,8 +25,6 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
   final _regiaoFocus = FocusNode();
   final _autorFocus = FocusNode();
   final _descricaoFocus = FocusNode();
-
-  final snackBar = SnackBar(content: Text('Proposta adicionada'));
 
   FirestoreService<Proposta> _propostaDB = new FirestoreService<Proposta>('propostas');
 
@@ -58,15 +53,14 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
             (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy]).toString());
             _editedProposta.situacao = 'Em votação';
             _propostaDB.createObject(_editedProposta).then((result) {
-              Scaffold.of(context).showSnackBar(snackBar);
               print('Sucesso!');
+              Navigator.pop(context, _editedProposta);
             }).catchError((e) {
-              print(e);
+              print('error: $e');
             });
-            Navigator.pop(context, _editedProposta);
           },
-            child:  Icon(Icons.save),
-            backgroundColor: Colors.lightBlueAccent,
+          child:  Icon(Icons.save),
+          backgroundColor: Colors.lightBlueAccent,
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(10.0),
@@ -138,7 +132,6 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
                   _editedProposta.descricao = text;
                   _userEdited = true;
                 },
-
               ),
             ],
           ),
