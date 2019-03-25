@@ -62,7 +62,18 @@ class _PropostaListViewState extends State<PropostaListView> {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {},
+            onPressed: () { 
+              if (isAutenticado) {
+                print("Tá autenticado");
+                print(_profile.toString());
+              } else {
+                authService.googleSignIn();
+                print(_profile.toString());
+                setState(() {
+                 this.isAutenticado = true; 
+                });
+              }
+            },
         ),
         title: Text(widget.title),
         actions: <Widget>[
