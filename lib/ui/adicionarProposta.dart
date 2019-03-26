@@ -12,21 +12,9 @@ class AdicionarProposta extends StatefulWidget {
 }
 
 class _AdicionarPropostaState extends State<AdicionarProposta> {
-  bool _userEdited = false;
-
-  final _tituloController = TextEditingController();
-  final _temaController = TextEditingController();
-  final _regiaoController = TextEditingController();
-  final _autorController = TextEditingController();
-  final _descricaoController = TextEditingController();
-
-  final _tituloFocus = FocusNode();
-  final _temaFocus = FocusNode();
-  final _regiaoFocus = FocusNode();
-  final _autorFocus = FocusNode();
-  final _descricaoFocus = FocusNode();
 
   FirestoreService<Proposta> _propostaDB = new FirestoreService<Proposta>('propostas');
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
 
   Proposta _editedProposta;
 
@@ -35,6 +23,8 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
     super.initState();
     _editedProposta = Proposta();
   }
+
+  final focus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -47,42 +37,20 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (_editedProposta.titulo == null ||
-                _editedProposta.titulo.isEmpty) {
-              FocusScope.of(context).requestFocus(_tituloFocus);
-            } else {
-              if (_editedProposta.tema == null ||
-                  _editedProposta.tema.isEmpty) {
-                FocusScope.of(context).requestFocus(_temaFocus);
-              } else {
-                if (_editedProposta.regiao == null ||
-                    _editedProposta.regiao.isEmpty) {
-                  FocusScope.of(context).requestFocus(_regiaoFocus);
-                } else {
-                  if (_editedProposta.autor == null ||
-                      _editedProposta.autor.isEmpty) {
-                    FocusScope.of(context).requestFocus(_autorFocus);
-                  } else {
-                    if (_editedProposta.descricao == null ||
-                        _editedProposta.descricao.isEmpty) {
-                      FocusScope.of(context).requestFocus(_descricaoFocus);
-                    } else {
-                      _editedProposta.vContra = 0;
-                      _editedProposta.vPositivo = 0;
-                      _editedProposta.dataCriacao =
-                      (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy])
-                          .toString());
-                      _editedProposta.situacao = 'Em votação';
-                      _propostaDB.createObject(_editedProposta).then((result) {
-                        print('Sucesso!');
-                        Navigator.pop(context, _editedProposta);
-                      }).catchError((e) {
-                        print('error: $e');
-                      });
-                    };
-                  }
-                }
-              }
+            if (_formKey.currentState.validate()) {
+              _formKey.currentState.save();
+              _editedProposta.vContra = 0;
+              _editedProposta.vPositivo = 0;
+              _editedProposta.dataCriacao =
+              (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy])
+                  .toString());
+              _editedProposta.situacao = 'Em votação';
+              _propostaDB.createObject(_editedProposta).then((result) {
+                print('Sucesso!');
+                Navigator.pop(context, _editedProposta);
+              }).catchError((e) {
+                print('error: $e');
+              });
             }
           },
           child:  Icon(Icons.save),
@@ -90,84 +58,121 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(10.0),
-          child: Column(
+          child: new Form(
+            key: this._formKey,
+            child: new Column(
             children: <Widget>[
-              TextField(
+              TextFormField(
+                focusNode: focus,
                 autofocus: true,
                 maxLength: 30,
-                controller: _tituloController,
-                focusNode: _tituloFocus,
+                textCapitalization: TextCapitalization.sentences,
+                maxLines: null,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
+                    counterText: "",
                     labelText: "Titulo do Projeto"
                 ),
-                onChanged: (text){
+                onSaved: (text){
                   _editedProposta.titulo = text;
-                  _userEdited = true;
+                },
+                validator: (text) {
+                  if (text.isEmpty) {
+                    FocusScope.of(context).requestFocus(focus);
+                    return 'Deve conter um título';
+                  }
                 },
               ),
-              TextField(
+              SizedBox(height: 10.0),
+              TextFormField(
                 maxLength: 15,
-                controller: _temaController,
-                focusNode: _temaFocus,
+                textCapitalization: TextCapitalization.sentences,
+                maxLines: null,
                 decoration: InputDecoration(
+                  counterText: "",
                   border: OutlineInputBorder(),
                   labelText: "Tema"
                 ),
-                onChanged: (text){
+                onSaved: (text){
                   _editedProposta.tema = text;
-                  _userEdited = true;
                   },
+                validator: (text) {
+                  if (text.isEmpty) {
+                    FocusScope.of(context).requestFocus(focus);
+                    return 'Deve conter um tema';
+                  }
+                },
               ),
-              TextField(
+              SizedBox(height: 10.0),
+              TextFormField(
                 maxLength: 15,
-                controller: _regiaoController,
-                focusNode: _regiaoFocus,
+                textCapitalization: TextCapitalization.sentences,
+                maxLines: null,
                 decoration: InputDecoration(
+                    counterText: "",
                     border: OutlineInputBorder(),
                     labelText: "Região"
                 ),
-                onChanged: (text){
+                onSaved: (text){
                   _editedProposta.regiao = text;
-                  _userEdited = true;
+                },
+                validator: (text) {
+                  if (text.isEmpty) {
+                    FocusScope.of(context).requestFocus(focus);
+                    return 'Deve conter uma região';
+                  }
                 },
               ),
-              TextField(
+              SizedBox(height: 10.0),
+              TextFormField(
                 maxLength: 40,
-                controller: _autorController,
-                focusNode: _autorFocus,
+                textCapitalization: TextCapitalization.sentences,
+                maxLines: null,
                 decoration: InputDecoration(
+                    counterText: "",
                     border: OutlineInputBorder(),
                     labelText: "Nome do Autor"
                 ),
-                onChanged: (text){
+                onSaved: (text){
                   _editedProposta.autor = text;
-                  _userEdited = true;
+                },
+                validator: (text) {
+                  FocusScope.of(context).requestFocus(focus);
+                  if (text.isEmpty) {
+                    return 'Deve conter o autor da proposta';
+                  }
                 },
               ),
-              TextField(
+              SizedBox(height: 10.0),
+              TextFormField(
                 maxLines: 10,
-                controller: _descricaoController,
-                focusNode: _descricaoFocus,
+                textInputAction: TextInputAction.done,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
+                    counterText: "",
                     border: OutlineInputBorder(),
                     labelText: "Descrição do Projeto",
                     hintText: "Descreva o seu projeto"
                 ),
-                onChanged: (text){
+                onSaved: (text){
                   _editedProposta.descricao = text;
-                  _userEdited = true;
+                },
+                validator: (text) {
+                  FocusScope.of(context).requestFocus(focus);
+                  if (text.isEmpty) {
+                    return 'Deve conter uma descrição';
+                  }
                 },
               ),
             ],
           ),
         ),
       ),
+    ),
     );
   }
 
   Future<bool> _requestPop(){
-    if(_userEdited){
       showDialog(context: context,
           builder: (context){
             return AlertDialog(
@@ -192,8 +197,5 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
           }
       );
       return Future.value(false);
-    } else {
-      return Future.value(true);
-    }
   }
 }
