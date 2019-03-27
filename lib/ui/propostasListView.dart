@@ -123,8 +123,13 @@ class _PropostaListViewState extends State<PropostaListView> {
       floatingActionButton: new FloatingActionButton(
           tooltip: 'Adicionar uma nova proposta.',
           child: new Icon(Icons.add),
-          onPressed: (){
-            _adicionarPropostaPage();
+          onPressed: () { 
+              if (_profile.isEmpty) {
+                authService.googleSignIn();
+              }
+              if (_profile.isNotEmpty) {
+                _adicionarPropostaPage();
+              }
           }
       ),
     );
