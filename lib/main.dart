@@ -15,6 +15,7 @@ class EParticipe extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: PropostaListView(title: 'e-Participe'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
