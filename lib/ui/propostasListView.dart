@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_participe/ui/visualizarProposta.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
@@ -18,7 +19,6 @@ class PropostaListView extends StatefulWidget {
 
 class _PropostaListViewState extends State<PropostaListView> {
   Map<String, dynamic> _profile;  
-  bool isAutenticado = false;
   bool _loading = false;
   List<Proposta> items;
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
@@ -29,10 +29,8 @@ class _PropostaListViewState extends State<PropostaListView> {
   void initState() {
     super.initState();
 
-    authService.profile.listen((state) => setState(() {
-      _profile = state;
-      isAutenticado = _profile.isNotEmpty;
-    }));
+    authService.signOut();
+    authService.profile.listen((state) => setState(() => _profile = state));
     authService.loading.listen((state) => setState(() => _loading = state));
 
     items = new List();
@@ -63,15 +61,12 @@ class _PropostaListViewState extends State<PropostaListView> {
         leading: IconButton(
             icon: Icon(Icons.menu),
             onPressed: () { 
-              if (isAutenticado) {
+              if (_profile.isNotEmpty) {
                 print("Tá autenticado");
                 print(_profile.toString());
               } else {
                 authService.googleSignIn();
                 print(_profile.toString());
-                setState(() {
-                 this.isAutenticado = true; 
-                });
               }
             },
         ),
