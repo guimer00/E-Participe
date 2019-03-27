@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_participe/ui/adicionarProposta.dart';
 import 'package:e_participe/ui/visualizarProposta.dart';
 
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class PropostaListView extends StatefulWidget {
   @override
   _PropostaListViewState createState() => _PropostaListViewState();
 }
+
+final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _PropostaListViewState extends State<PropostaListView> {
   Map<String, dynamic> _profile;  
@@ -56,6 +59,7 @@ class _PropostaListViewState extends State<PropostaListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.menu),
@@ -95,7 +99,7 @@ class _PropostaListViewState extends State<PropostaListView> {
                   ),
                   onTap: () {
                     Navigator.push(
-                      context, 
+                      context,
                       MaterialPageRoute(
                         builder: (context) => VisualizarProposta(proposta: items[position])
                       )
@@ -116,7 +120,31 @@ class _PropostaListViewState extends State<PropostaListView> {
           } // itemBuilder
         ),
       ),
+      floatingActionButton: new FloatingActionButton(
+          tooltip: 'Adicionar uma nova proposta.',
+          child: new Icon(Icons.add),
+          onPressed: (){
+            _adicionarPropostaPage();
+          }
+      ),
     );
   }
 
+  _displaySnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Proposta adicionada!'),
+      duration: Duration(seconds: 2),
+      backgroundColor: Colors.blue
+    );
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+  }
+
+  void _adicionarPropostaPage() async {
+    final adicionarNovaProposta = await Navigator.push(context,
+      MaterialPageRoute(builder: (context) => AdicionarProposta())
+    );
+    if (adicionarNovaProposta != null){
+      _displaySnackBar(context);
+    }
+  }
 }
