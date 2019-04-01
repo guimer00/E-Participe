@@ -20,7 +20,7 @@ class PropostaListView extends StatefulWidget {
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _PropostaListViewState extends State<PropostaListView> {
-  Map<String, dynamic> _profile;  
+  Map<String, dynamic> _profile;
   bool _loading = false;
   List<Proposta> items;
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
@@ -63,14 +63,9 @@ class _PropostaListViewState extends State<PropostaListView> {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () { 
-              if (_profile.isNotEmpty) {
-                print("Tá autenticado");
-                print(_profile.toString());
-              } else {
-                authService.googleSignIn();
-                print(_profile.toString());
-              }
+            onPressed: () async { 
+              var currentUser = await authService.getCurrentUser();
+              print(currentUser.displayName);
             },
         ),
         title: Text(widget.title),
@@ -125,7 +120,9 @@ class _PropostaListViewState extends State<PropostaListView> {
           child: new Icon(Icons.add),
           onPressed: () { 
               if (_profile.isEmpty) {
-                authService.googleSignIn();
+                authService.googleSignIn().then((_) {
+                  _adicionarPropostaPage();
+                });
               }
               if (_profile.isNotEmpty) {
                 _adicionarPropostaPage();

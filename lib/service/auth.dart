@@ -31,6 +31,11 @@ class AuthService {
     });
   }
 
+  Future<FirebaseUser> getCurrentUser() async {
+    FirebaseUser currentUser = await _auth.currentUser();
+    return currentUser;
+  }
+
   Future<FirebaseUser> googleSignIn() async {
     // Start
     loading.add(true);
@@ -46,7 +51,6 @@ class AuthService {
     );
 
     FirebaseUser user = await _auth.signInWithCredential(credential);
-
     // Step 3
     updateUserData(user);
 
