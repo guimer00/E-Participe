@@ -1,3 +1,4 @@
+import 'package:e_participe/service/auth.dart';
 import 'package:e_participe/service/firestoreService.dart';
 import 'package:flutter/material.dart';
 import 'package:e_participe/model/proposta.dart';
@@ -25,7 +26,6 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
   }
 
   final _tituloFocus = FocusNode();
-  final _autorFocus = FocusNode();
   final _temaFocus = FocusNode();
   final _descricaoFocus = FocusNode();
   final _regiaoFocus = FocusNode();
@@ -40,9 +40,12 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState.validate()) {
               _formKey.currentState.save();
+               await authService.getCurrentUser().then((user) {
+                 _editedProposta.autor = user.displayName;
+               });
               _editedProposta.vContra = 0;
               _editedProposta.vPositivo = 0;
               _editedProposta.dataCriacao =
@@ -126,27 +129,6 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
                   if (text.isEmpty) {
                     FocusScope.of(context).requestFocus(_regiaoFocus);
                     return 'Deve conter uma região';
-                  }
-                },
-              ),
-              SizedBox(height: 10.0),
-              TextFormField(
-                focusNode: _autorFocus,
-                maxLength: 40,
-                textCapitalization: TextCapitalization.sentences,
-                maxLines: null,
-                decoration: InputDecoration(
-                    counterText: "",
-                    border: OutlineInputBorder(),
-                    labelText: "Nome do Autor"
-                ),
-                onSaved: (text){
-                  _editedProposta.autor = text;
-                },
-                validator: (text) {
-                  if (text.isEmpty) {
-                    FocusScope.of(context).requestFocus(_autorFocus);
-                    return 'Deve conter o autor da proposta';
                   }
                 },
               ),

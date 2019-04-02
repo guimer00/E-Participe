@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:e_participe/service/firestoreService.dart';
 
 import 'package:e_participe/model/proposta.dart';
+import 'package:e_participe/service/auth.dart';
 
 class PropostaListView extends StatefulWidget {
   PropostaListView({Key key, this.title}) : super(key: key);
@@ -19,6 +20,8 @@ class PropostaListView extends StatefulWidget {
 final _scaffoldKey = GlobalKey<ScaffoldState>();
 
 class _PropostaListViewState extends State<PropostaListView> {
+  Map<String, dynamic> _profile;
+  bool _loading = false;
   List<Proposta> items;
   FirestoreService<Proposta> propostaDB = new FirestoreService<Proposta>('propostas');
 
@@ -27,6 +30,10 @@ class _PropostaListViewState extends State<PropostaListView> {
   @override
   void initState() {
     super.initState();
+
+    authService.signOut();
+    authService.profile.listen((state) => setState(() => _profile = state));
+    authService.loading.listen((state) => setState(() => _loading = state));
 
     items = new List();
 
@@ -56,7 +63,10 @@ class _PropostaListViewState extends State<PropostaListView> {
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(Icons.menu),
-            onPressed: () {},
+            onPressed: () async { 
+              var currentUser = await authService.getCurrentUser();
+              print(currentUser.displayName);
+            },
         ),
         title: Text(widget.title),
         actions: <Widget>[
@@ -108,8 +118,15 @@ class _PropostaListViewState extends State<PropostaListView> {
       floatingActionButton: new FloatingActionButton(
           tooltip: 'Adicionar uma nova proposta.',
           child: new Icon(Icons.add),
-          onPressed: (){
-            _adicionarPropostaPage();
+          onPressed: () { 
+              if (_profile.isEmpty) {
+                authService.googleSignIn().then((_) {
+                  _adicionarPropostaPage();
+                });
+              }
+              if (_profile.isNotEmpty) {
+                _adicionarPropostaPage();
+              }
           }
       ),
     );
