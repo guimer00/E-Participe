@@ -107,7 +107,17 @@ class VisualizarDados extends StatelessWidget {
                         style: TextStyle(fontSize: 18.0)),
                     SizedBox(height: 10.0),
                     new FlatButton(
-                        onPressed: null,
+                        onPressed: () {
+                          authService.getCurrentUser().then((user) {
+                            if(user == null) {
+                              authService.googleSignIn().then((_) {
+                                print("Lógica de votação");
+                              });
+                            } else {
+                              print("Lógica de votação $user");
+                            }
+                          });
+                        },
                         child: Column(
                           children: <Widget>[
                             Icon(Icons.thumb_down, size: 50.0, color: _colorUp)
