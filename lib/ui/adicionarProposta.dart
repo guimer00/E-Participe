@@ -46,8 +46,8 @@ class _AdicionarPropostaState extends State<AdicionarProposta> {
                await authService.getCurrentUser().then((user) {
                  _editedProposta.autor = user.displayName;
                });
-              _editedProposta.vContra = 0;
-              _editedProposta.vPositivo = 0;
+              _editedProposta.vContra = null;
+              _editedProposta.vPositivo = null;
               _editedProposta.dataCriacao =
               (formatDate(DateTime.now(), [dd, '/', mm, '/', yyyy])
                   .toString());

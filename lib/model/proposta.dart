@@ -6,8 +6,8 @@ class Proposta extends BaseModel {
   String _regiao;
   String _dataCriacao;
   String _autor;
-  int _vPositivo;
-  int _vContra;
+  List<String> _vPositivo;
+  List<String> _vContra;
   String _situacao;
   String _descricao;
 
@@ -49,9 +49,9 @@ class Proposta extends BaseModel {
 
   String get autor => _autor;
 
-  int get vPositivo => _vPositivo;
+  List<String> get vPositivo => _vPositivo;
 
-  int get vContra => _vContra;
+  List<String> get vContra => _vContra;
 
   String get situacao => _situacao;
 
@@ -114,11 +114,11 @@ class Proposta extends BaseModel {
     _autor = value;
   }
 
-  set vPositivo(int value) {
+  set vPositivo(List<String> value) {
     _vPositivo = value;
   }
 
-  set vContra(int value) {
+  set vContra(List<String> value) {
     _vContra = value;
   }
 
