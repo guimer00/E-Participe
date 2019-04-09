@@ -1,12 +1,10 @@
 import 'package:e_participe/model/proposta.dart';
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/auth.dart';
-import 'package:e_participe/service/firestoreService.dart';
 
 
 var _colorUp = Colors.black38;
 var _colorDown = Colors.black38;
-
 
 class VisualizarProposta extends StatelessWidget {
   final Proposta proposta;
@@ -27,7 +25,6 @@ class VisualizarProposta extends StatelessWidget {
 }
 
 
-
 class VisualizarDados extends StatelessWidget {
 
   const VisualizarDados({
@@ -36,7 +33,6 @@ class VisualizarDados extends StatelessWidget {
   }) : super(key: key);
 
   final Proposta proposta;
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +87,29 @@ class VisualizarDados extends StatelessWidget {
                         style: TextStyle(fontSize: 18.0)),
                     SizedBox(height: 10.0),
                     new FlatButton(
-                        onPressed: null,
+                        onPressed: () {
+                          authService.getCurrentUser().then((user) {
+                            if (user == null) {
+                              authService.googleSignIn().then((_) {
+                                if (proposta.vPositivo.contains(user.uid)) {
+                                  proposta.vPositivo.remove(user.uid);
+                                  _colorUp = Colors.black38;
+                                } else {
+                                  proposta.vPositivo.add(user.uid);
+                                  _colorUp = Colors.green;
+                                };
+                              });
+                            } else {
+                              if (proposta.vPositivo.contains(user.uid)) {
+                                proposta.vPositivo.remove(user.uid);
+                                _colorUp = Colors.black38;
+                              } else {
+                                proposta.vPositivo.add(user.uid);
+                                _colorUp = Colors.green;
+                              };
+                            }
+                          });
+                        },
                         child: Column(
                           children: <Widget>[
                             Icon(Icons.thumb_up, size: 50.0, color: _colorUp)
@@ -111,16 +129,28 @@ class VisualizarDados extends StatelessWidget {
                           authService.getCurrentUser().then((user) {
                             if(user == null) {
                               authService.googleSignIn().then((_) {
-                                print("Lógica de votação");
+                                if (proposta.vContra.contains(user.uid)) {
+                                  proposta.vContra.remove(user.uid);
+                                  _colorDown = Colors.black38;
+                                } else {
+                                  proposta.vContra.add(user.uid);
+                                  _colorDown = Colors.red;
+                                };
                               });
                             } else {
-                              print("Lógica de votação $user");
+                              if (proposta.vContra.contains(user.uid)) {
+                                proposta.vContra.remove(user.uid);
+                                _colorDown = Colors.black38;
+                              } else {
+                                proposta.vContra.add(user.uid);
+                                _colorDown = Colors.red;
+                              };
                             }
                           });
                         },
                         child: Column(
                           children: <Widget>[
-                            Icon(Icons.thumb_down, size: 50.0, color: _colorUp)
+                            Icon(Icons.thumb_down, size: 50.0, color: _colorDown)
                           ],
                         ))
                   ],
@@ -132,6 +162,4 @@ class VisualizarDados extends StatelessWidget {
       ],
     );
   }
-
-
 }
