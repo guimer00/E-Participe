@@ -1,13 +1,16 @@
 import 'package:e_participe/model/proposta.dart';
+import 'package:e_participe/service/firestoreService.dart';
 import 'package:flutter/material.dart';
 import 'package:e_participe/service/auth.dart';
 
 
 var _colorUp = Colors.black38;
 var _colorDown = Colors.black38;
+FirestoreService<Proposta> _propostaDB = new FirestoreService<Proposta>('propostas');
 
 class VisualizarProposta extends StatelessWidget {
   final Proposta proposta;
+
 
   //Exige Proposta no construtor
   VisualizarProposta({Key key, @required this.proposta}) : super(key: key);
@@ -93,20 +96,52 @@ class VisualizarDados extends StatelessWidget {
                               authService.googleSignIn().then((_) {
                                 if (proposta.vPositivo.contains(user.uid)) {
                                   proposta.vPositivo.remove(user.uid);
+                                  _propostaDB.updateObject(proposta).then((result) {
+                                    print('Sucesso!');
+                                    Navigator.pop(context, );
+                                  }).catchError((e) {
+                                    print('error: $e');
+                                  });
                                   _colorUp = Colors.black38;
                                 } else {
                                   proposta.vPositivo.add(user.uid);
+                                  if(proposta.vContra.contains(user.uid)){
+                                    proposta.vContra.remove(user.uid);
+                                    _propostaDB.updateObject(proposta).then((result) {
+                                      print('Sucesso!');
+                                      Navigator.pop(context, );
+                                    }).catchError((e) {
+                                      print('error: $e');
+                                    });
+                                    _colorDown = Colors.black38;
+                                  }
                                   _colorUp = Colors.green;
                                 };
                               });
                             } else {
                               if (proposta.vPositivo.contains(user.uid)) {
                                 proposta.vPositivo.remove(user.uid);
+                                _propostaDB.updateObject(proposta).then((result) {
+                                  print('Sucesso!');
+                                  Navigator.pop(context, );
+                                }).catchError((e) {
+                                  print('error: $e');
+                                });
                                 _colorUp = Colors.black38;
                               } else {
-                                proposta.vPositivo.add(user.uid);
-                                _colorUp = Colors.green;
-                              };
+                            proposta.vPositivo.add(user.uid);
+                            if(proposta.vContra.contains(user.uid)){
+                            proposta.vContra.remove(user.uid);
+                            _propostaDB.updateObject(proposta).then((result) {
+                            print('Sucesso!');
+                            Navigator.pop(context, );
+                            }).catchError((e) {
+                            print('error: $e');
+                            });
+                            _colorDown = Colors.black38;
+                            }
+                            _colorUp = Colors.green;
+                            };
                             }
                           });
                         },
@@ -134,6 +169,10 @@ class VisualizarDados extends StatelessWidget {
                                   _colorDown = Colors.black38;
                                 } else {
                                   proposta.vContra.add(user.uid);
+                                  if(proposta.vPositivo.contains(user.uid)){
+                                    proposta.vPositivo.remove(user.uid);
+                                    _colorDown = Colors.black38;
+                                  }
                                   _colorDown = Colors.red;
                                 };
                               });
@@ -143,6 +182,10 @@ class VisualizarDados extends StatelessWidget {
                                 _colorDown = Colors.black38;
                               } else {
                                 proposta.vContra.add(user.uid);
+                                if(proposta.vPositivo.contains(user.uid)){
+                                  proposta.vPositivo.remove(user.uid);
+                                  _colorDown = Colors.black38;
+                                }
                                 _colorDown = Colors.red;
                               };
                             }

@@ -81,8 +81,8 @@ class Proposta extends BaseModel {
     this._regiao = map['regiao'];
     this._dataCriacao = map['dataCriacao'];
     this._autor = map['autor'];
-    this._vPositivo = map['vPositivo'];
-    this._vContra = map['vContra'];
+    this._vPositivo = List.from(map['vPositivo']);
+    this._vContra = List.from(map['vContra']);
     this._situacao = map['situacao'];
     this._descricao = map['descricao'];
   }
